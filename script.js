@@ -68,7 +68,7 @@ function render() {
   progressBar.style.width = `${(index + 1) / steps.length * 100}%`;
   backButton.hidden = index === 0;
   nextButton.disabled = false;
-  nextButton.innerHTML = currentStep === 'review' ? 'SEND MY RSVP <span aria-hidden="true">↗</span>' : 'CONTINUE <span aria-hidden="true">↗</span>';
+  nextButton.textContent = currentStep === 'review' ? 'SEND MY RSVP' : 'CONTINUE';
   actions.hidden = false;
 
   if (currentStep === 'name') {
@@ -85,7 +85,7 @@ function render() {
       <h3 class="step-title" id="question-title">Will you join us?</h3>
       <p class="step-description">Please let us know if you'll be celebrating with us on 10 December.</p>
       <div class="choice-grid" role="group" aria-label="Attendance">
-        <button type="button" class="choice ${state.attending === 'yes' ? 'is-selected' : ''}" aria-pressed="${state.attending === 'yes'}" data-choice="yes"><span class="choice-title">Joyfully, yes! ♡</span><span class="choice-sub">I'll be there</span></button>
+        <button type="button" class="choice ${state.attending === 'yes' ? 'is-selected' : ''}" aria-pressed="${state.attending === 'yes'}" data-choice="yes"><span class="choice-title">Joyfully, yes!</span><span class="choice-sub">I'll be there</span></button>
         <button type="button" class="choice ${state.attending === 'no' ? 'is-selected' : ''}" aria-pressed="${state.attending === 'no'}" data-choice="no"><span class="choice-title">Sadly, I can't make it</span><span class="choice-sub">Sending love from afar</span></button>
       </div>`;
     bindChoices('attending');
@@ -148,7 +148,7 @@ function showComplete(mode) {
   actions.hidden = true;
   demoHint.hidden = true;
   progressBar.style.width = '100%';
-  formCounter.textContent = '♡';
+  formCounter.textContent = 'THANK YOU';
   const attending = state.attending === 'yes';
   let heading = attending ? 'See you there!' : 'Thank you, lovely.';
   let message = attending
@@ -158,7 +158,7 @@ function showComplete(mode) {
     heading = 'Preview complete!';
     message = 'This is a design preview. No RSVP was saved. Connect the Google Apps Script URL to accept real guest responses.';
   }
-  formBody.innerHTML = `<div class="completed" role="status"><div class="completed-symbol" aria-hidden="true">♡</div><h3>${heading}</h3><p>${message}</p><button class="restart-button" type="button" id="restart-button">${mode === 'demo' ? 'TRY AGAIN' : 'SUBMIT ANOTHER RESPONSE'}</button></div>`;
+  formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 90 105" aria-hidden="true" fill="none"><path d="M39 88C22 72 9 51 15 35c6-16 24-11 28 3 6-18 25-25 33-9 9 18-14 44-37 59Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M31 94C43 70 51 44 54 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><h3>${heading}</h3><p>${message}</p><button class="restart-button" type="button" id="restart-button">${mode === 'demo' ? 'TRY AGAIN' : 'SUBMIT ANOTHER RESPONSE'}</button></div>`;
   document.getElementById('restart-button').addEventListener('click', () => {
     state = { name:'', attending:null, plusOne:null };
     currentStep = 'name'; pendingId = null; demoHint.hidden = configured; render();
@@ -204,7 +204,7 @@ function submitRSVP() {
   responseTimeout = setTimeout(() => {
     isSending = false;
     nextButton.disabled = false;
-    nextButton.innerHTML = 'TRY AGAIN <span aria-hidden="true">↗</span>';
+    nextButton.textContent = 'TRY AGAIN';
     showError('We could not confirm the response. Please check with the organiser before trying again to avoid duplicates.');
   }, 30000);
 }
@@ -224,7 +224,7 @@ window.addEventListener('message', (event) => {
   nextButton.disabled = false;
   if (data.ok) showComplete('saved');
   else {
-    nextButton.innerHTML = 'TRY AGAIN <span aria-hidden="true">↗</span>';
+    nextButton.textContent = 'TRY AGAIN';
     showError(data.message || 'Something went wrong. Please try again.');
   }
 });
