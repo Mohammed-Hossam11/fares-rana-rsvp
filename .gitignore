@@ -1,0 +1,14 @@
+# OS / editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Never commit guest response data or credentials
+*.csv
+*.xlsx
+*.xls
+.env
+*.env
+credentials*.json
