@@ -30,7 +30,9 @@ const formCounter = document.getElementById('form-counter');
 const frame = document.getElementById('response-frame');
 const demoHint = document.getElementById('demo-hint');
 
-let state = { name: '', attending: null, plusOne: null };
+let state = { name: '', attending: null };
+// One seat per invitation: guests no longer choose a plus-one.
+const seatsFor = attending => (attending === 'yes' ? '1' : '0');
 let currentStep = 'name';
 let pendingId = null;
 let responseTimeout = null;
@@ -56,7 +58,7 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 
 function flow() {
-  return state.attending === 'no' ? ['name', 'attendance', 'review'] : ['name', 'attendance', 'plusOne', 'review'];
+  return ['name', 'attendance', 'review'];
 }
 
 function escapeHTML(value) {
@@ -97,17 +99,9 @@ function render() {
         <button type="button" class="choice ${state.attending === 'no' ? 'is-selected' : ''}" aria-pressed="${state.attending === 'no'}" data-choice="no"><span class="choice-title">Sadly, I can't make it</span><span class="choice-sub">Sending love from afar</span></button>
       </div>`;
     bindChoices('attending');
-  } else if (currentStep === 'plusOne') {
-    formBody.innerHTML = `
-      <h3 class="step-title" id="question-title">Bringing a plus-one?</h3>
-      <div class="choice-grid" role="group" aria-label="Plus-one">
-        <button type="button" class="choice ${state.plusOne === 'no' ? 'is-selected' : ''}" aria-pressed="${state.plusOne === 'no'}" data-choice="no"><span class="choice-title">Just me</span><span class="choice-sub">One lovely guest</span></button>
-        <button type="button" class="choice ${state.plusOne === 'yes' ? 'is-selected' : ''}" aria-pressed="${state.plusOne === 'yes'}" data-choice="yes"><span class="choice-title">Me + one</span><span class="choice-sub">Two lovely guests</span></button>
-      </div>`;
-    bindChoices('plusOne');
   } else if (currentStep === 'review') {
     const attendance = state.attending === 'yes' ? 'Happily attending' : 'Unable to attend';
-    const guestCount = state.attending === 'no' ? '0' : state.plusOne === 'yes' ? '2' : '1';
+    const guestCount = seatsFor(state.attending);
     formBody.innerHTML = `
       <h3 class="step-title" id="question-title">Ready to send?</h3>
       <dl class="summary">
@@ -123,10 +117,6 @@ function bindChoices(field) {
   formBody.querySelectorAll('[data-choice]').forEach(button => {
     button.addEventListener('click', () => {
       state[field] = button.dataset.choice;
-      if (field === 'attending' && state.attending === 'no') state.plusOne = 'no';
-      if (field === 'attending' && state.attending === 'yes' && state.plusOne === 'no') {
-        // Keep an existing answer if the user went backwards.
-      }
       render();
     });
   });
@@ -142,8 +132,6 @@ function validateStep() {
     }
   } else if (currentStep === 'attendance' && !state.attending) {
     showError('Please choose whether you can attend.'); return false;
-  } else if (currentStep === 'plusOne' && !state.plusOne) {
-    showError('Please select one of the options.'); return false;
   }
   return true;
 }
@@ -170,7 +158,7 @@ function showComplete(mode) {
     : '';
   formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>${heading}</h3><p>${message}</p>${calendar}<button class="restart-button" type="button" id="restart-button">${mode === 'demo' ? 'TRY AGAIN' : 'SUBMIT ANOTHER RESPONSE'}</button></div>`;
   document.getElementById('restart-button').addEventListener('click', () => {
-    state = { name:'', attending:null, plusOne:null };
+    state = { name:'', attending:null };
     currentStep = 'name'; pendingId = null; demoHint.hidden = configured; render();
   });
 }
@@ -192,8 +180,8 @@ function submitRSVP() {
     submission_id: pendingId,
     name: state.name.trim(),
     attendance: state.attending,
-    plus_one: state.attending === 'yes' ? state.plusOne : 'no',
-    guest_count: state.attending === 'no' ? '0' : state.plusOne === 'yes' ? '2' : '1'
+    plus_one: 'no', // kept for the existing Google Sheets columns
+    guest_count: seatsFor(state.attending)
   };
   // A hidden-iframe POST avoids the unreliable CORS behavior of fetch() against
   // Apps Script. The Apps Script HTML response acknowledges success via postMessage.
