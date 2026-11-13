@@ -150,7 +150,7 @@ function showComplete(mode) {
     heading = 'Preview complete!';
     message = 'This is a design preview. No RSVP was saved. Connect the Google Apps Script URL to accept real guest responses.';
   }
-  formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 90 105" aria-hidden="true" fill="none"><path d="M39 88C22 72 9 51 15 35c6-16 24-11 28 3 6-18 25-25 33-9 9 18-14 44-37 59Z" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M31 94C43 70 51 44 54 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><h3>${heading}</h3><p>${message}</p><button class="restart-button" type="button" id="restart-button">${mode === 'demo' ? 'TRY AGAIN' : 'SUBMIT ANOTHER RESPONSE'}</button></div>`;
+  formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M12 20.25C12 20.25 3.25 15 3.25 9.1A4.35 4.35 0 0 1 12 7.6a4.35 4.35 0 0 1 8.75 1.5c0 5.9-8.75 11.15-8.75 11.15Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><h3>${heading}</h3><p>${message}</p><button class="restart-button" type="button" id="restart-button">${mode === 'demo' ? 'TRY AGAIN' : 'SUBMIT ANOTHER RESPONSE'}</button></div>`;
   document.getElementById('restart-button').addEventListener('click', () => {
     state = { name:'', attending:null, plusOne:null };
     currentStep = 'name'; pendingId = null; demoHint.hidden = configured; render();
