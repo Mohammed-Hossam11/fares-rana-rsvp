@@ -19,7 +19,7 @@ const CALENDAR_EVENT = {
   location: 'The Nile Ritz-Carlton, Cairo, Egypt',
   description: 'Wedding celebration of Fares & Rana',
   begin: WEDDING_DATE.getTime(),            // absolute instant: 7:00 PM Cairo on any device
-  end: WEDDING_DATE.getTime() + 4 * 3600000  // 11:00 PM Cairo
+  end: WEDDING_DATE.getTime() + 7 * 3600000  // 2:00 AM Cairo, 11 December
 };
 const isAndroid = /Android/i.test(navigator.userAgent);
 function androidCalendarIntent() {
