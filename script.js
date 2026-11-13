@@ -4,7 +4,7 @@
  * Paste the public /exec URL from your deployed Google Apps Script web app.
  * Until configured, the form runs in clearly labelled preview mode.
  */
-const APPS_SCRIPT_URL = '';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-fdlw4fTsWsyCe5vUbh7vNaJHPWcoFsdI6VLav7hnSzDbomPnmGrig1VWXXrf9Khd/exec';
 
 // Ceremony: Thursday 10 December 2026, 7:00 PM Cairo time (UTC+2 in December).
 const WEDDING_DATE = new Date('2026-12-10T19:00:00+02:00');
