@@ -13,7 +13,8 @@
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+.topbar, .rsvp-section { scroll-snap-align: start; }
 body { margin: 0; font-variant-emoji: text; background: var(--paper); color: var(--ink); font-family: var(--sans); font-weight: 400; -webkit-font-smoothing: antialiased; }
 button, input { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -26,11 +27,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .topbar { width: min(1410px, calc(100% - 104px)); height: 88px; margin: auto; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
 .monogram { font: 26px var(--serif); text-decoration: none; white-space: nowrap; }
 .monogram span { color: #9b735b; font-family: var(--script); font-size: 26px; }
-.topbar-note { font-size: 9px; font-weight: 600; letter-spacing: .31em; color: var(--subtle); }
-.topbar-link { font-size: 10px; letter-spacing: .16em; font-weight: 600; text-decoration: none; padding: 12px 0; border-bottom: 1px solid var(--brown); }
-.hero { text-align: center; position: relative; isolation: isolate; min-height: 664px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
-.hero::before { content:''; position: absolute; width: 630px; height: 630px; z-index: -1; top: 23px; left: 50%; transform: translateX(-50%); border: 1px solid #e6dbce; border-radius: 50%; opacity:.64; }
-.hero::after { content:''; position: absolute; width: 520px; height: 520px; z-index: -1; top: 78px; left: 50%; transform: translateX(-50%); border: 1px solid #e9e0d6; border-radius: 50%; opacity:.6; }
+.hero { text-align: center; position: relative; isolation: isolate; min-height: calc(100vh - 88px); min-height: calc(100svh - 88px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
 .hero-intro { letter-spacing: .4em; }
 .hero-subtitle { font-size: 14px; color: #5c4b42; margin: 20px 0 0; max-width: 460px; line-height: 1.75; }
 .names-wrap { position: relative; margin: 3px 0 0; }
@@ -96,14 +93,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .hero-subtitle { animation-delay:.08s; } .names-wrap { animation-delay:.16s; } .date-divider { animation-delay:.25s; } .wedding-date { animation-delay:.28s; } .wedding-place { animation-delay:.32s; } .primary-cta { animation-delay:.37s; }
 @keyframes rise-in { from { opacity:0; transform:translateY(13px); } to { opacity:1; transform:translateY(0); } }
 @media (max-width: 620px) {
-  html { scroll-snap-type: y proximity; }
-  .topbar, .rsvp-section { scroll-snap-align: start; }
   .section-inner { width:min(100% - 34px, 490px); }
   .topbar { width:calc(100% - 36px); height:72px; }
-  .topbar-note { display:none; }
-  .topbar-link { display:none; }
   .hero { min-height:calc(100vh - 72px); min-height:calc(100svh - 72px); padding:28px 24px 40px; }
-  .hero::before, .hero::after { display:none; }
   .hero-intro { font-size:10px; letter-spacing:.24em; }
   .hero-subtitle { font-size:14px; max-width:290px; margin-top:clamp(12px, 2.2svh, 22px); }
   .names-wrap { margin-top:clamp(12px, 3svh, 30px); }
