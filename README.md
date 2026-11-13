@@ -36,7 +36,7 @@ Google's free Apps Script service has quotas and no absolute uptime guarantee. A
 ## Edit details
 
 - Change names, venue, date copy, and colour palette text in `index.html`.
-- Update the countdown timestamp in `script.js` if the event date changes. This currently counts down to **midnight Cairo time** at the start of 10 December, **not the ceremony start time**, because no event time was provided.
+- Update the countdown timestamp in `script.js` if the event date changes. It counts down to **7:00 PM Cairo time** on 10 December 2026 (the ceremony start). The save-the-date event lives in `fares-rana-wedding.ics` and in `GOOGLE_CALENDAR_URL` in `script.js`; update both if the time changes.
 - Change design colours via CSS variables at the top of `styles.css`.
 - The colour palette is presented as *visual inspiration*, not a compulsory guest dress code. You can change this if the couple confirms a dress code.
 

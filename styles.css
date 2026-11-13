@@ -14,6 +14,8 @@
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+html.is-typing { scroll-snap-type: none; }
+html.is-typing .rsvp-section { padding-bottom: 45vh; }
 .topbar, .rsvp-section { scroll-snap-align: start; }
 body { margin: 0; font-variant-emoji: text; background: var(--paper); color: var(--ink); font-family: var(--sans); font-weight: 400; -webkit-font-smoothing: antialiased; }
 button, input { font: inherit; }
@@ -37,31 +39,33 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .handdrawn-heart { position:absolute; width: 38px; height: 38px; right: -14px; top: 10px; transform: rotate(12deg); color: #8a6450; }
 .date-divider { display:block; width: 56px; height: 1px; background: #b39a86; margin: 18px 0 24px; }
 .wedding-date { font-size: 13px; letter-spacing: .28em; font-weight:700; color: var(--ink); margin: 0 0 12px; }
+.wedding-time { font-size: 11px; letter-spacing: .2em; font-weight:600; color: var(--ink); margin: 0 0 10px; }
 .wedding-place { font-size: 11px; letter-spacing: .2em; font-weight:600; color: var(--brown); margin: 0; }
 .dot { padding: 0 8px; }
 .primary-cta { margin-top: 36px; min-width: 210px; min-height: 50px; padding: 0 32px; background: var(--brown); color: #fff; text-decoration: none; font-size: 11px; font-weight:600; letter-spacing: .22em; display: inline-flex; justify-content: center; align-items: center; transition: background .2s, transform .2s; }
 .primary-cta:hover, .next-button:hover { background: #4a3028; transform: translateY(-2px); }
 .rsvp-section { min-height: 100vh; min-height: 100dvh; display:flex; flex-direction:column; padding: 64px 0 0; background: #e9dfd2; border-top:1px solid #dfd2c2; }
 .rsvp-layout { flex:1; width: min(600px, calc(100% - 40px)); margin-inline:auto; display:flex; flex-direction:column; justify-content:center; text-align:center; }
-.countdown-heading { margin: 12px 0 0; font: 38px/1.2 var(--serif); font-weight:400; }
+.countdown-heading { margin: 12px 0 0; font: 34px/1.4 var(--serif); font-weight:400; }
 .countdown { display:flex; align-items:flex-start; justify-content:center; gap: 18px; margin-top: 22px; }
 .time-unit { display:flex; flex-direction:column; align-items:center; gap: 6px; min-width: 58px; }
 .time-unit strong { font: 38px/1 var(--serif); letter-spacing: -.02em; font-variant-numeric:tabular-nums; }
 .time-unit span { font-size: 10px; letter-spacing:.14em; font-weight:600; color:var(--subtle); }
 .time-colon { font: 26px/1 var(--serif); padding-top: 4px; color:#9c7c68; }
 .rsvp-heading { margin: 44px 0 20px; font: 36px/1.1 var(--serif); letter-spacing: -.01em; font-weight:400; }
-.countdown-heading em, .rsvp-heading em { font-family: var(--script); font-size: 1.3em; font-weight:400; font-style: normal; color: #855f4c; }
-.form-card { width:100%; border:1px solid var(--border); background:var(--white); text-align:left; padding:30px 40px 26px; box-shadow: 0 25px 70px #70543b0b; }
+.countdown-heading em { font-family: var(--script); font-size: 1.35em; font-weight:400; font-style: normal; color: #855f4c; }
+.rsvp-heading em { font-family: var(--script); font-size: 1.3em; font-weight:400; font-style: normal; color: #855f4c; }
+.form-card { width:100%; border:1px solid #d6c8b9; background:var(--white); text-align:left; padding:36px 44px 30px; box-shadow: 0 24px 60px #70543b17; }
 .form-topline { display:flex; align-items:center; margin-bottom:12px; }
 .form-counter { font-size:11px; letter-spacing:.19em; color:#7a6253; font-weight:600; }
 .progress-track { height:2px; background:#e8ded4; }
 .progress-track > span { display:block; height:100%; background:#785442; transition:width .2s ease; }
 .demo-hint { color:#795a47; font-weight:700; font-size:10px; letter-spacing:.08em; margin:14px 0 0; text-align:center; line-height:1.6; }
-.form-body { padding:28px 0 8px; min-height:170px; }
-.step-title { font:34px/1.12 var(--serif); letter-spacing:-.02em; margin:0 0 18px; }
-.name-input { display:block; height:55px; width:100%; border:0; border-bottom:1px solid #a98b76; padding:7px 2px; font-family:var(--serif); font-size:22px; color:var(--ink); background:transparent; outline:none; border-radius:0; }
-.name-input:focus { border-bottom:2px solid var(--brown); outline:none; }
-.name-input::placeholder { color:#b1a197; }
+.form-body { padding:34px 0 14px; min-height:190px; }
+.step-title { font:36px/1.12 var(--serif); letter-spacing:-.02em; margin:0 0 22px; }
+.name-input { display:block; height:64px; width:100%; border:0; border-bottom:1.5px solid #8f6f5b; padding:0 16px; font-family:var(--serif); font-size:24px; color:var(--ink); background:#f4ece3; outline:none; border-radius:0; -webkit-appearance:none; appearance:none; transition:background .15s, border-color .15s; }
+.name-input:focus { background:#efe3d6; border-bottom:2px solid var(--brown); outline:none; }
+.name-input::placeholder { color:#a08d80; }
 .choice-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
 .choice { min-height:86px; padding:19px 15px; border:1px solid #d9c9bb; background: transparent; color:var(--ink); cursor:pointer; text-align:left; display:flex; flex-direction:column; justify-content:center; gap:7px; transition:background .15s, border-color .15s; }
 .choice:hover { background:#f5eee7; border-color:#b79a84; }
@@ -81,6 +85,10 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .privacy-note { color:#7d6a5d; font-size:11px; line-height:1.6; text-align:center; margin:18px 0 0; }
 .completed { text-align:center; padding:10px 0; }
 .completed-symbol { display:block; width:40px; height:40px; margin:0 auto; color:#895c45; }
+.calendar-actions { display:flex; flex-direction:column; align-items:center; gap:10px; margin:0 0 18px; }
+.calendar-button { display:inline-flex; align-items:center; justify-content:center; min-height:48px; min-width:220px; padding:0 26px; background:var(--brown); color:#fff; text-decoration:none; font-size:11px; font-weight:700; letter-spacing:.18em; transition:background .2s; }
+.calendar-button:hover { background:#4a3028; }
+.calendar-alt { font-size:12px; color:var(--subtle); text-decoration:none; border-bottom:1px solid #c9b6a6; padding:6px 0 2px; }
 .completed h3 { font:42px var(--serif); font-weight:400; margin:17px 0 13px; }
 .completed p { font-size:13px; line-height:1.9; color:var(--subtle); max-width:390px; margin:0 auto 24px; }
 .completed .restart-button { min-height:44px; border:0; background:transparent; padding:9px 10px; color:var(--brown); font-size:10px; cursor:pointer; font-weight:700; letter-spacing:.17em; border-bottom:1px solid var(--brown); }
@@ -109,20 +117,20 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
   .eyebrow { letter-spacing:.2em; }
   .rsvp-section { padding-top:clamp(16px, 3svh, 28px); }
   .rsvp-layout { width:calc(100% - 32px); }
-  .countdown-heading { font-size:clamp(24px, 7.6vw, 32px); line-height:1.15; margin-top:clamp(4px, 1svh, 8px); }
+  .countdown-heading { font-size:clamp(23px, 6.9vw, 27px); line-height:1.4; margin-top:clamp(2px, .6svh, 6px); }
   .countdown { gap:8px; margin-top:clamp(10px, 1.8svh, 16px); }
   .time-unit { min-width:52px; gap:5px; }
   .time-unit strong { font-size:clamp(30px, 4svh, 36px); }
   .time-unit span { font-size:10px; letter-spacing:.06em; }
   .time-colon { font-size:20px; padding-top:3px; }
   .rsvp-heading { font-size:28px; margin:clamp(20px, 4.4svh, 42px) 0 clamp(12px, 2svh, 18px); }
-  .form-card { padding:18px 18px 16px; box-shadow:none; }
+  .form-card { padding:24px 20px 20px; box-shadow:0 14px 40px #70543b14; }
   .demo-hint { font-size:10px; letter-spacing:.05em; margin-top:10px; }
-  .form-body { padding:20px 0 4px; min-height:0; }
-  .step-title { font-size:28px; margin-bottom:14px; }
-  .name-input { height:50px; font-size:20px; }
+  .form-body { padding:26px 0 10px; min-height:0; }
+  .step-title { font-size:30px; margin-bottom:18px; }
+  .name-input { height:58px; font-size:21px; padding:0 14px; }
   .choice-grid { grid-template-columns:1fr; gap:8px; }
-  .choice { min-height:60px; padding:11px 14px; gap:4px; }
+  .choice { min-height:66px; padding:12px 16px; gap:4px; }
   .summary-line { padding:12px 0; }
   .summary-line dd { font-size:17px; }
   .form-actions { margin-top:14px; }

@@ -6,7 +6,17 @@
  */
 const APPS_SCRIPT_URL = '';
 
-const WEDDING_DATE = new Date('2026-12-10T00:00:00+02:00');
+// Ceremony: Thursday 10 December 2026, 7:00 PM Cairo time (UTC+2 in December).
+const WEDDING_DATE = new Date('2026-12-10T19:00:00+02:00');
+// Save-the-date: iPhone, Mac and desktop open the hosted .ics; Android goes to Google Calendar,
+// because most Android phones cannot open .ics files directly.
+const CALENDAR_ICS = 'fares-rana-wedding.ics';
+const GOOGLE_CALENDAR_URL = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+  + '&text=' + encodeURIComponent('Fares & Rana Wedding')
+  + '&dates=20261210T190000/20261210T230000&ctz=Africa/Cairo'
+  + '&location=' + encodeURIComponent('The Nile Ritz-Carlton, Cairo')
+  + '&details=' + encodeURIComponent('Wedding celebration of Fares & Rana');
+const isAndroid = /Android/i.test(navigator.userAgent);
 const form = document.getElementById('rsvp-form');
 const formBody = document.getElementById('form-body');
 const actions = document.getElementById('form-actions');
@@ -150,7 +160,13 @@ function showComplete(mode) {
     heading = 'Preview complete!';
     message = 'This is a design preview. No RSVP was saved. Connect the Google Apps Script URL to accept real guest responses.';
   }
-  formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M12 20.25C12 20.25 3.25 15 3.25 9.1A4.35 4.35 0 0 1 12 7.6a4.35 4.35 0 0 1 8.75 1.5c0 5.9-8.75 11.15-8.75 11.15Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><h3>${heading}</h3><p>${message}</p><button class="restart-button" type="button" id="restart-button">${mode === 'demo' ? 'TRY AGAIN' : 'SUBMIT ANOTHER RESPONSE'}</button></div>`;
+  const calendar = attending
+    ? `<div class="calendar-actions">
+        <a class="calendar-button" href="${isAndroid ? escapeHTML(GOOGLE_CALENDAR_URL) : CALENDAR_ICS}"${isAndroid ? ' target="_blank" rel="noopener"' : ''}>ADD TO CALENDAR</a>
+        ${isAndroid ? '' : `<a class="calendar-alt" href="${escapeHTML(GOOGLE_CALENDAR_URL)}" target="_blank" rel="noopener">or add to Google Calendar</a>`}
+      </div>`
+    : '';
+  formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>${heading}</h3><p>${message}</p>${calendar}<button class="restart-button" type="button" id="restart-button">${mode === 'demo' ? 'TRY AGAIN' : 'SUBMIT ANOTHER RESPONSE'}</button></div>`;
   document.getElementById('restart-button').addEventListener('click', () => {
     state = { name:'', attending:null, plusOne:null };
     currentStep = 'name'; pendingId = null; demoHint.hidden = configured; render();
@@ -220,6 +236,32 @@ window.addEventListener('message', (event) => {
     showError(data.message || 'Something went wrong. Please try again.');
   }
 });
+
+// Keep the question and the field being typed in visible above the on-screen keyboard.
+// While typing, scroll snapping is paused (it could pull the page back to the section top)
+// and extra space is added below the form so the field can always scroll clear of the keyboard.
+const root = document.documentElement;
+const visual = window.visualViewport;
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+function revealActiveField() {
+  const field = document.activeElement;
+  if (!field || field.tagName !== 'INPUT' || !form.contains(field)) return;
+  const visibleTop = visual ? visual.offsetTop : 0;
+  const visibleHeight = visual ? visual.height : window.innerHeight;
+  const anchor = document.getElementById('question-title') || field;
+  const anchorTop = anchor.getBoundingClientRect().top - visibleTop;
+  const fieldBottom = field.getBoundingClientRect().bottom - visibleTop;
+  if (anchorTop >= 12 && fieldBottom <= visibleHeight - 16) return;
+  const offset = fieldBottom - anchorTop <= visibleHeight - 28 ? anchorTop - 12 : fieldBottom - (visibleHeight - 16);
+  window.scrollBy({ top: offset, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+}
+form.addEventListener('focusin', (event) => {
+  if (event.target.tagName !== 'INPUT') return;
+  root.classList.add('is-typing');
+  setTimeout(revealActiveField, 350);
+});
+form.addEventListener('focusout', () => root.classList.remove('is-typing'));
+if (visual) visual.addEventListener('resize', () => { if (root.classList.contains('is-typing')) revealActiveField(); });
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
