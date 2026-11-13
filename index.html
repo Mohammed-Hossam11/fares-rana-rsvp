@@ -36,14 +36,12 @@
         <p class="wedding-date fade-in">10TH OF DECEMBER 2026</p>
         <p class="wedding-place fade-in">THE NILE RITZ-CARLTON <span class="dot">·</span> CAIRO</p>
         <a href="#rsvp" class="primary-cta fade-in">KINDLY RSVP</a>
-        <p class="hero-bottom fade-in">We can't wait to share this day with you.</p>
       </section>
 
       <section class="rsvp-section" id="rsvp" aria-labelledby="rsvp-heading">
-        <div class="section-inner rsvp-layout">
+        <div class="rsvp-layout">
           <div class="countdown-panel">
-            <p class="eyebrow">THE DAY IS ALMOST HERE</p>
-            <h2 id="countdown-title">Counting down <em>to forever.</em></h2>
+            <p class="eyebrow countdown-label" id="countdown-title">THE DAY IS ALMOST HERE</p>
             <div class="countdown" id="countdown" role="timer" aria-label="Countdown to 10 December 2026">
               <div class="time-unit"><strong id="days">--</strong><span>DAYS</span></div>
               <span class="time-colon" aria-hidden="true">:</span>
@@ -53,46 +51,34 @@
               <span class="time-colon" aria-hidden="true">:</span>
               <div class="time-unit"><strong id="seconds">--</strong><span>SECONDS</span></div>
             </div>
-            <p class="countdown-note">Thursday, 10 December 2026<br />The Nile Ritz-Carlton, Cairo</p>
-            <a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=The+Nile+Ritz-Carlton+Cairo" target="_blank" rel="noopener noreferrer">VIEW LOCATION</a>
           </div>
 
-          <div class="rsvp-panel">
-            <p class="eyebrow">YOUR PRESENCE MEANS EVERYTHING</p>
-            <h2 class="section-title" id="rsvp-heading">Kindly <em>RSVP.</em></h2>
-            <p class="rsvp-intro">A few little questions, and you're all set.</p>
+          <h2 class="rsvp-heading" id="rsvp-heading">Kindly <em>RSVP</em></h2>
 
-            <div class="form-card">
-              <div class="form-topline">
-                <span class="form-kicker">FARES <span>&</span> RANA</span>
-                <span class="form-counter" id="form-counter">01 / 04</span>
-              </div>
-              <div class="progress-track"><span id="progress-bar" style="width:25%"></span></div>
-              <p class="demo-hint" id="demo-hint" hidden>PREVIEW MODE — RESPONSES ARE NOT SAVED UNTIL GOOGLE SHEETS IS CONNECTED</p>
-
-              <form id="rsvp-form" novalidate>
-                <div class="form-body" id="form-body" aria-live="polite">
-                  <!-- Questions rendered by script.js -->
-                </div>
-                <p class="form-error" id="form-error" role="alert" hidden></p>
-                <div class="form-actions" id="form-actions">
-                  <button type="button" class="back-button" id="back-button" hidden>BACK</button>
-                  <button type="submit" class="next-button" id="next-button">CONTINUE</button>
-                </div>
-              </form>
-              <p class="privacy-note">Your response is shared only with the wedding organisers.</p>
+          <div class="form-card">
+            <div class="form-topline">
+              <span class="form-counter" id="form-counter">01 / 04</span>
             </div>
+            <div class="progress-track"><span id="progress-bar" style="width:25%"></span></div>
+            <p class="demo-hint" id="demo-hint" hidden>PREVIEW MODE — RESPONSES ARE NOT SAVED YET</p>
+
+            <form id="rsvp-form" novalidate>
+              <div class="form-body" id="form-body" aria-live="polite">
+                <!-- Questions rendered by script.js -->
+              </div>
+              <p class="form-error" id="form-error" role="alert" hidden></p>
+              <div class="form-actions" id="form-actions">
+                <button type="button" class="back-button" id="back-button" hidden>BACK</button>
+                <button type="submit" class="next-button" id="next-button">CONTINUE</button>
+              </div>
+            </form>
+            <p class="privacy-note">Your response is shared only with the wedding organisers.</p>
           </div>
         </div>
+
+        <footer class="footer"><p>Fares <span>&amp;</span> Rana <span class="dot">·</span> 10.12.2026</p></footer>
       </section>
     </main>
-
-    <footer class="footer">
-      <p class="footer-names">Fares <span>&</span> Rana</p>
-      <p class="footer-date">10.12.2026 <span class="dot">·</span> CAIRO</p>
-      <p class="footer-note">Thank you for being part of our story.</p>
-      <a href="#home" class="footer-top">BACK TO TOP</a>
-    </footer>
   </div>
   <iframe id="response-frame" name="rsvp-response-frame" title="RSVP submission result" class="response-frame" tabindex="-1" aria-hidden="true"></iframe>
   <script src="script.js"></script>

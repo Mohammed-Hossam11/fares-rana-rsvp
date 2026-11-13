@@ -73,17 +73,13 @@ function render() {
 
   if (currentStep === 'name') {
     formBody.innerHTML = `
-      <p class="step-label">01 / A LITTLE INTRODUCTION</p>
       <h3 class="step-title" id="question-title">What is your name?</h3>
-      <p class="step-description">We'd love to know who's replying.</p>
       <label for="guest-name" class="sr-only">Your full name</label>
       <input class="name-input" type="text" id="guest-name" placeholder="Your full name..." maxlength="80" autocomplete="name" required value="${escapeHTML(state.name)}" />`;
     document.getElementById('guest-name').addEventListener('input', (event) => { state.name = event.target.value; });
   } else if (currentStep === 'attendance') {
     formBody.innerHTML = `
-      <p class="step-label">02 / WE HOPE YOU CAN MAKE IT</p>
       <h3 class="step-title" id="question-title">Will you join us?</h3>
-      <p class="step-description">Please let us know if you'll be celebrating with us on 10 December.</p>
       <div class="choice-grid" role="group" aria-label="Attendance">
         <button type="button" class="choice ${state.attending === 'yes' ? 'is-selected' : ''}" aria-pressed="${state.attending === 'yes'}" data-choice="yes"><span class="choice-title">Joyfully, yes!</span><span class="choice-sub">I'll be there</span></button>
         <button type="button" class="choice ${state.attending === 'no' ? 'is-selected' : ''}" aria-pressed="${state.attending === 'no'}" data-choice="no"><span class="choice-title">Sadly, I can't make it</span><span class="choice-sub">Sending love from afar</span></button>
@@ -91,9 +87,7 @@ function render() {
     bindChoices('attending');
   } else if (currentStep === 'plusOne') {
     formBody.innerHTML = `
-      <p class="step-label">03 / ONE OR TWO?</p>
       <h3 class="step-title" id="question-title">Bringing a plus-one?</h3>
-      <p class="step-description">Let us know how many seats to save for you.</p>
       <div class="choice-grid" role="group" aria-label="Plus-one">
         <button type="button" class="choice ${state.plusOne === 'no' ? 'is-selected' : ''}" aria-pressed="${state.plusOne === 'no'}" data-choice="no"><span class="choice-title">Just me</span><span class="choice-sub">One lovely guest</span></button>
         <button type="button" class="choice ${state.plusOne === 'yes' ? 'is-selected' : ''}" aria-pressed="${state.plusOne === 'yes'}" data-choice="yes"><span class="choice-title">Me + one</span><span class="choice-sub">Two lovely guests</span></button>
@@ -103,9 +97,7 @@ function render() {
     const attendance = state.attending === 'yes' ? 'Happily attending' : 'Unable to attend';
     const guestCount = state.attending === 'no' ? '0' : state.plusOne === 'yes' ? '2' : '1';
     formBody.innerHTML = `
-      <p class="step-label">${String(index + 1).padStart(2, '0')} / ALMOST DONE</p>
       <h3 class="step-title" id="question-title">Ready to send?</h3>
-      <p class="step-description">Please check your answers before sending.</p>
       <dl class="summary">
         <div class="summary-line"><dt>NAME</dt><dd>${escapeHTML(state.name.trim())}</dd></div>
         <div class="summary-line"><dt>RESPONSE</dt><dd>${attendance}</dd></div>
