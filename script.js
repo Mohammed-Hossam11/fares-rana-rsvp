@@ -89,7 +89,7 @@ function render() {
     formBody.innerHTML = `
       <h3 class="step-title" id="question-title">What is your name?</h3>
       <label for="guest-name" class="field-label">Full name</label>
-      <input class="name-input" type="text" id="guest-name" placeholder="e.g. Layla Hassan" maxlength="80" autocomplete="name" required value="${escapeHTML(state.name)}" />`;
+      <input class="name-input" type="text" id="guest-name" placeholder="e.g. Mohammed Hossam" maxlength="80" autocomplete="name" required value="${escapeHTML(state.name)}" />`;
     document.getElementById('guest-name').addEventListener('input', (event) => { state.name = event.target.value; });
   } else if (currentStep === 'attendance') {
     formBody.innerHTML = `
