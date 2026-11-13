@@ -86,8 +86,8 @@ function render() {
   if (currentStep === 'name') {
     formBody.innerHTML = `
       <h3 class="step-title" id="question-title">What is your name?</h3>
-      <label for="guest-name" class="sr-only">Your full name</label>
-      <input class="name-input" type="text" id="guest-name" placeholder="Your full name..." maxlength="80" autocomplete="name" required value="${escapeHTML(state.name)}" />`;
+      <label for="guest-name" class="field-label">Full name</label>
+      <input class="name-input" type="text" id="guest-name" placeholder="e.g. Layla Hassan" maxlength="80" autocomplete="name" required value="${escapeHTML(state.name)}" />`;
     document.getElementById('guest-name').addEventListener('input', (event) => { state.name = event.target.value; });
   } else if (currentStep === 'attendance') {
     formBody.innerHTML = `
@@ -239,12 +239,13 @@ window.addEventListener('message', (event) => {
   }
 });
 
-// Keep the question and the field being typed in visible above the on-screen keyboard.
-// While typing, scroll snapping is paused (it could pull the page back to the section top)
-// and extra space is added below the form so the field can always scroll clear of the keyboard.
+// Calm keyboard handling: let the browser open the keyboard, wait until the viewport has
+// settled, then scroll once (only if the question or field is actually hidden).
+// Snapping is switched off for good once the form is used, so nothing pulls the page back.
 const root = document.documentElement;
 const visual = window.visualViewport;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+let revealTimer = null;
 function revealActiveField() {
   const field = document.activeElement;
   if (!field || field.tagName !== 'INPUT' || !form.contains(field)) return;
@@ -253,17 +254,20 @@ function revealActiveField() {
   const anchor = document.getElementById('question-title') || field;
   const anchorTop = anchor.getBoundingClientRect().top - visibleTop;
   const fieldBottom = field.getBoundingClientRect().bottom - visibleTop;
-  if (anchorTop >= 12 && fieldBottom <= visibleHeight - 16) return;
-  const offset = fieldBottom - anchorTop <= visibleHeight - 28 ? anchorTop - 12 : fieldBottom - (visibleHeight - 16);
+  if (anchorTop >= 8 && fieldBottom <= visibleHeight - 12) return;
+  const offset = fieldBottom - anchorTop <= visibleHeight - 24 ? anchorTop - 16 : fieldBottom - (visibleHeight - 16);
   window.scrollBy({ top: offset, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+}
+function scheduleReveal() {
+  clearTimeout(revealTimer);
+  revealTimer = setTimeout(revealActiveField, 220);
 }
 form.addEventListener('focusin', (event) => {
   if (event.target.tagName !== 'INPUT') return;
-  root.classList.add('is-typing');
-  setTimeout(revealActiveField, 350);
+  root.classList.add('form-active');
+  scheduleReveal();
 });
-form.addEventListener('focusout', () => root.classList.remove('is-typing'));
-if (visual) visual.addEventListener('resize', () => { if (root.classList.contains('is-typing')) revealActiveField(); });
+if (visual) visual.addEventListener('resize', () => { if (document.activeElement?.tagName === 'INPUT') scheduleReveal(); });
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
