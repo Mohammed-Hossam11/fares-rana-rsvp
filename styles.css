@@ -61,7 +61,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .date-year { margin: 10px 0 0; padding-left: .45em; font: 19px var(--serif); letter-spacing: .45em; -webkit-text-stroke: .2px currentColor; }
 .hero-venue { margin: 22px 0 0; font: 15px/1.8 var(--serif); letter-spacing: .26em; }
 .venue-main { font-size: 1.08em; color: var(--invite-strong); -webkit-text-stroke: .35px currentColor; }
-.venue-sub { color: var(--invite); }
+.venue-sub { color: var(--invite-strong); -webkit-text-stroke: .6px currentColor; }
 .dot { padding: 0 8px; }
 .primary-cta { margin-top: 36px; min-height: 52px; padding: 0 26px 0 30px; display: inline-flex; justify-content: center; align-items: center; gap: 14px; border: 1px solid #8a6450; border-radius: 999px; background: rgba(252, 248, 242, .6); color: var(--brown); text-decoration: none; font: 18px var(--serif); letter-spacing: .04em; transition: background .3s ease, color .3s ease, border-color .3s ease; }
 .primary-cta:hover { background: var(--brown); border-color: var(--brown); color: #fbf6ef; }
