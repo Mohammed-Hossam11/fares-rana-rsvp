@@ -8,15 +8,34 @@ const APPS_SCRIPT_URL = '';
 
 // Ceremony: Thursday 10 December 2026, 7:00 PM Cairo time (UTC+2 in December).
 const WEDDING_DATE = new Date('2026-12-10T19:00:00+02:00');
-// Save-the-date: iPhone, Mac and desktop open the hosted .ics; Android goes to Google Calendar,
-// because most Android phones cannot open .ics files directly.
+// Save-the-date.
+// iPhone, Mac and desktop: the hosted .ics file (opens the native Calendar "Add" sheet on iOS).
+// Android: an intent: link with ACTION_INSERT opens the installed calendar app's prefilled
+// new-event screen (Google Calendar, Samsung Calendar, ...). If no app accepts it, Chrome-based
+// browsers open S.browser_fallback_url instead, which is the same .ics file.
 const CALENDAR_ICS = 'fares-rana-wedding.ics';
-const GOOGLE_CALENDAR_URL = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-  + '&text=' + encodeURIComponent('Fares & Rana Wedding')
-  + '&dates=20261210T190000/20261210T230000&ctz=Africa/Cairo'
-  + '&location=' + encodeURIComponent('The Nile Ritz-Carlton, Cairo')
-  + '&details=' + encodeURIComponent('Wedding celebration of Fares & Rana');
+const CALENDAR_EVENT = {
+  title: 'Fares & Rana Wedding',
+  location: 'The Nile Ritz-Carlton, Cairo, Egypt',
+  description: 'Wedding celebration of Fares & Rana',
+  begin: WEDDING_DATE.getTime(),            // absolute instant: 7:00 PM Cairo on any device
+  end: WEDDING_DATE.getTime() + 4 * 3600000  // 11:00 PM Cairo
+};
 const isAndroid = /Android/i.test(navigator.userAgent);
+function androidCalendarIntent() {
+  const text = (key, value) => `S.${key}=${encodeURIComponent(value)}`;
+  return 'intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.item/event;'
+    + [
+      text('title', CALENDAR_EVENT.title),
+      text('eventLocation', CALENDAR_EVENT.location),
+      text('description', CALENDAR_EVENT.description),
+      text('eventTimezone', 'Africa/Cairo'),
+      `l.beginTime=${CALENDAR_EVENT.begin}`,
+      `l.endTime=${CALENDAR_EVENT.end}`,
+      'B.allDay=false',
+      text('browser_fallback_url', new URL(CALENDAR_ICS, window.location.href).href)
+    ].join(';') + ';end';
+}
 // Universal Maps URL: opens the Google Maps app when installed, otherwise the browser.
 const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('The Nile Ritz-Carlton, Cairo, Egypt');
 const form = document.getElementById('rsvp-form');
@@ -152,7 +171,7 @@ function showComplete(mode) {
   }
   const calendar = attending
     ? `<div class="calendar-actions">
-        <a class="calendar-button" href="${isAndroid ? escapeHTML(GOOGLE_CALENDAR_URL) : CALENDAR_ICS}"${isAndroid ? ' target="_blank" rel="noopener"' : ''}>ADD TO CALENDAR</a>
+        <a class="calendar-button" href="${isAndroid ? escapeHTML(androidCalendarIntent()) : CALENDAR_ICS}">ADD TO CALENDAR</a>
         <a class="calendar-button" href="${escapeHTML(MAPS_URL)}" target="_blank" rel="noopener">VIEW LOCATION</a>
       </div>`
     : '';
