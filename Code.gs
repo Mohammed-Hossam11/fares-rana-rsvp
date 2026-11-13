@@ -3,7 +3,7 @@
  * Create this script via Extensions > Apps Script from the client's Google Sheet.
  * Deploy as a Web App: Execute as Me; Who has access: Anyone.
  */
-const SHEET_NAME = 'RSVPs';
+const SHEET_NAME = 'Wedding List';
 const HEADERS = ['Received at', 'Submission ID', 'Guest name', 'Attending', 'Plus-one', 'Number of guests'];
 
 function doPost(e) {
