@@ -175,8 +175,9 @@ function showComplete(mode) {
         <a class="calendar-button" href="${escapeHTML(MAPS_URL)}" target="_blank" rel="noopener">VIEW LOCATION</a>
       </div>`
     : '';
-  formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>${heading}</h3><p>${message}</p>${calendar}<button class="restart-button" type="button" id="restart-button">${mode === 'demo' ? 'TRY AGAIN' : 'SUBMIT ANOTHER RESPONSE'}</button></div>`;
-  document.getElementById('restart-button').addEventListener('click', () => {
+  formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>${heading}</h3><p>${message}</p>${calendar}${mode === 'demo' ? '<button class="restart-button" type="button" id="restart-button">TRY AGAIN</button>' : ''}</div>`;
+  // A confirmed RSVP has no restart option; only the preview keeps "Try again".
+  document.getElementById('restart-button')?.addEventListener('click', () => {
     state = { name:'', attending:null };
     currentStep = 'name'; pendingId = null; demoHint.hidden = configured; render();
   });
