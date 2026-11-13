@@ -17,6 +17,7 @@ Static wedding RSVP site (vanilla HTML, CSS, JavaScript), hosted on GitHub Pages
 
 - Preserve the existing colours (cream, beige, caramel, mocha, chocolate brown), fonts (Allura script, Italiana serif, DM Sans) and animations unless explicitly told otherwise.
 - Mobile first: phones (~390px) are the priority. Any change made for mobile is mirrored on desktop/laptop unless it is inherently narrow-screen (e.g. stacking the names); when the two conflict, mobile wins.
+- Whenever `styles.css` or `script.js` changes, bump the `?v=` tag on both links in `index.html` (GitHub Pages caches files for 10 minutes and phones keep stale copies otherwise). A local pre-commit hook in `.git/hooks/pre-commit` refuses commits that skip this.
 - Keep every asset path relative (no leading `/`) so the site works under the `/fares-rana-rsvp/` Pages subpath.
 - Keep the site responsive on desktop, tablet and mobile: no horizontal scrolling, readable text sizes.
 - Do not modify the RSVP submission backend, `APPS_SCRIPT_URL`, or `Code.gs` unless explicitly instructed.
