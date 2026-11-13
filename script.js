@@ -80,7 +80,7 @@ function render() {
   progressBar.style.width = `${(index + 1) / steps.length * 100}%`;
   backButton.hidden = index === 0;
   nextButton.disabled = false;
-  nextButton.textContent = currentStep === 'review' ? 'SEND MY RSVP' : 'CONTINUE';
+  nextButton.textContent = currentStep === 'review' ? 'SEND RESPONSE' : 'CONTINUE';
   actions.hidden = false;
 
   if (currentStep === 'name') {
