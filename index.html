@@ -8,32 +8,53 @@
   <title>Fares & Rana — Wedding RSVP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@300;400;500;600;700&family=Italiana&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261114h" />
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@300;400;500;600;700&family=Italiana&family=Noto+Naskh+Arabic:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=20261114i" />
 </head>
 <body>
   <div class="page-shell">
-    <header class="topbar" aria-label="Site heading">
-      <a href="#home" class="monogram" aria-label="Fares and Rana, go to top">F <span>&</span> R</a>
-      <span class="topbar-title">Wedding Invitation</span>
-    </header>
-
     <main id="home">
       <section class="hero" aria-labelledby="main-title">
-        <p class="eyebrow hero-intro fade-in">WITH JOY IN OUR HEARTS</p>
-        <p class="hero-subtitle fade-in">With our families, we request the honour of your presence at the marriage of</p>
-
-        <div class="names-wrap fade-in">
-          <svg class="handdrawn-heart" viewBox="0 0 24 24" aria-hidden="true" fill="none">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <h1 id="main-title" class="names"><span class="name">Fares</span> <span class="amp">&amp;</span> <span class="name">Rana</span></h1>
+        <svg width="0" height="0" class="svg-defs" aria-hidden="true" focusable="false">
+          <defs>
+            <symbol id="flower" viewBox="-46 -46 92 92">
+              <g fill="#f2e3a6"><path d="M0 -7C-7 -12 -17 -24 -14 -34C-12 -41 -4 -42 0 -36C4 -42 12 -41 14 -34C17 -24 7 -12 0 -7Z" transform="rotate(0)"/><path d="M0 -7C-7 -12 -17 -24 -14 -34C-12 -41 -4 -42 0 -36C4 -42 12 -41 14 -34C17 -24 7 -12 0 -7Z" transform="rotate(60)"/><path d="M0 -7C-7 -12 -17 -24 -14 -34C-12 -41 -4 -42 0 -36C4 -42 12 -41 14 -34C17 -24 7 -12 0 -7Z" transform="rotate(120)"/><path d="M0 -7C-7 -12 -17 -24 -14 -34C-12 -41 -4 -42 0 -36C4 -42 12 -41 14 -34C17 -24 7 -12 0 -7Z" transform="rotate(180)"/><path d="M0 -7C-7 -12 -17 -24 -14 -34C-12 -41 -4 -42 0 -36C4 -42 12 -41 14 -34C17 -24 7 -12 0 -7Z" transform="rotate(240)"/><path d="M0 -7C-7 -12 -17 -24 -14 -34C-12 -41 -4 -42 0 -36C4 -42 12 -41 14 -34C17 -24 7 -12 0 -7Z" transform="rotate(300)"/></g>
+              <circle r="6.5" fill="#f7eecb" stroke="#d5ab3d" stroke-width="3.2"/>
+            </symbol>
+          </defs>
+        </svg>
+        <div class="hero-flowers" aria-hidden="true">
+          <svg class="flower f1"><use href="#flower"/></svg>
+          <svg class="flower f2"><use href="#flower"/></svg>
+          <svg class="flower f3"><use href="#flower"/></svg>
+          <svg class="flower f4"><use href="#flower"/></svg>
+          <svg class="flower f5"><use href="#flower"/></svg>
+          <svg class="flower f6"><use href="#flower"/></svg>
+          <svg class="flower f7"><use href="#flower"/></svg>
+          <svg class="flower f8"><use href="#flower"/></svg>
+          <svg class="flower f9"><use href="#flower"/></svg>
+          <svg class="flower f10"><use href="#flower"/></svg>
+          <svg class="flower f11"><use href="#flower"/></svg>
+          <svg class="flower f12"><use href="#flower"/></svg>
+          <svg class="flower f13"><use href="#flower"/></svg>
+          <svg class="flower f14"><use href="#flower"/></svg>
         </div>
 
-        <span class="date-divider fade-in" aria-hidden="true"></span>
-        <p class="wedding-date fade-in">10TH OF DECEMBER 2026</p>
-        <p class="wedding-time fade-in">THURSDAY <span class="dot">·</span> 7:00 PM</p>
-        <p class="wedding-place fade-in">THE NILE RITZ-CARLTON <span class="dot">·</span> CAIRO</p>
+        <p class="hero-intro fade-in">WITH JOY IN OUR HEARTS</p>
+        <div class="hosts fade-in" lang="ar" dir="rtl">
+          <p>المهندس/ حسام الدين محمد</p>
+          <span class="hosts-amp" dir="ltr">&amp;</span>
+          <p>اللواء/ حازم محمد طلعت</p>
+        </div>
+        <p class="hero-request fade-in">REQUEST THE HONOUR OF YOUR PRESENCE AT THE WEDDING OF</p>
+        <h1 id="main-title" class="names fade-in"><span class="name">Fares</span> <span class="amp">&amp;</span> <span class="name">Rana</span></h1>
+
+        <div class="hero-date fade-in" role="group" aria-label="Thursday, 10 December 2026, at 7:00 PM">
+          <p class="date-month" aria-hidden="true">DECEMBER</p>
+          <div class="date-row" aria-hidden="true"><span class="date-side">THURSDAY</span><span class="date-day">10</span><span class="date-side">AT 7 PM</span></div>
+          <p class="date-year" aria-hidden="true">2026</p>
+        </div>
+        <p class="hero-venue fade-in">AT THE NILE RITZ-CARLTON, CAIRO<br />ALF LEILA W LEILA BALLROOM</p>
         <a href="#rsvp" class="primary-cta fade-in"><span>Let us know you’re coming</span><svg class="cta-arrow" viewBox="0 0 12 18" aria-hidden="true" fill="none"><path d="M6 1.5v14M1.75 11.25 6 15.5l4.25-4.25" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </section>
 
@@ -85,6 +106,6 @@
     </main>
   </div>
   <iframe id="response-frame" name="rsvp-response-frame" title="RSVP submission result" class="response-frame" tabindex="-1" aria-hidden="true"></iframe>
-  <script src="script.js?v=20261114h"></script>
+  <script src="script.js?v=20261114i"></script>
 </body>
 </html>
