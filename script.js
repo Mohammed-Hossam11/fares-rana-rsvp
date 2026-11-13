@@ -17,6 +17,8 @@ const GOOGLE_CALENDAR_URL = 'https://calendar.google.com/calendar/render?action=
   + '&location=' + encodeURIComponent('The Nile Ritz-Carlton, Cairo')
   + '&details=' + encodeURIComponent('Wedding celebration of Fares & Rana');
 const isAndroid = /Android/i.test(navigator.userAgent);
+// Universal Maps URL: opens the Google Maps app when installed, otherwise the browser.
+const MAPS_URL = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('The Nile Ritz-Carlton, Cairo, Egypt');
 const form = document.getElementById('rsvp-form');
 const formBody = document.getElementById('form-body');
 const actions = document.getElementById('form-actions');
@@ -163,7 +165,7 @@ function showComplete(mode) {
   const calendar = attending
     ? `<div class="calendar-actions">
         <a class="calendar-button" href="${isAndroid ? escapeHTML(GOOGLE_CALENDAR_URL) : CALENDAR_ICS}"${isAndroid ? ' target="_blank" rel="noopener"' : ''}>ADD TO CALENDAR</a>
-        ${isAndroid ? '' : `<a class="calendar-alt" href="${escapeHTML(GOOGLE_CALENDAR_URL)}" target="_blank" rel="noopener">or add to Google Calendar</a>`}
+        <a class="calendar-button" href="${escapeHTML(MAPS_URL)}" target="_blank" rel="noopener">VIEW LOCATION</a>
       </div>`
     : '';
   formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>${heading}</h3><p>${message}</p>${calendar}<button class="restart-button" type="button" id="restart-button">${mode === 'demo' ? 'TRY AGAIN' : 'SUBMIT ANOTHER RESPONSE'}</button></div>`;
