@@ -262,10 +262,21 @@ function scheduleReveal() {
   clearTimeout(revealTimer);
   revealTimer = setTimeout(revealActiveField, 220);
 }
+// Match the page background and browser tint to the RSVP section while the keyboard is open,
+// so no cream strip shows around the keyboard's rounded corners.
+const themeColor = document.querySelector('meta[name="theme-color"]');
+const PAGE_TINT = themeColor ? themeColor.content : '';
+const TYPING_TINT = '#e9dfd2';
 form.addEventListener('focusin', (event) => {
   if (event.target.tagName !== 'INPUT') return;
-  root.classList.add('form-active');
+  root.classList.add('form-active', 'is-typing');
+  if (themeColor) themeColor.content = TYPING_TINT;
   scheduleReveal();
+});
+form.addEventListener('focusout', (event) => {
+  if (event.target.tagName !== 'INPUT') return;
+  root.classList.remove('is-typing');
+  if (themeColor) themeColor.content = PAGE_TINT;
 });
 if (visual) visual.addEventListener('resize', () => { if (document.activeElement?.tagName === 'INPUT') scheduleReveal(); });
 

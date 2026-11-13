@@ -13,8 +13,10 @@
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+html { background: var(--paper); scroll-behavior: smooth; scroll-snap-type: y proximity; }
 html.form-active { scroll-snap-type: none; }
+/* While typing, whatever iOS/Android shows around the keyboard matches the section behind the form */
+html.is-typing, html.is-typing body { background: #e9dfd2; }
 .topbar, .rsvp-section { scroll-snap-align: start; }
 body { margin: 0; font-variant-emoji: text; background: var(--paper); color: var(--ink); font-family: var(--sans); font-weight: 400; -webkit-font-smoothing: antialiased; }
 button, input { font: inherit; }
