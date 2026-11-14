@@ -163,7 +163,7 @@ function showComplete(mode) {
   const attending = state.attending === 'yes';
   let heading = attending ? 'See you there!' : 'Thank you, lovely.';
   let message = attending
-    ? `Your RSVP has been received, ${escapeHTML(state.name)}. We can't wait to celebrate together.`
+    ? `We can't wait to celebrate together, <strong class="guest-name">${escapeHTML(state.name)}</strong>!`
     : `Thank you for letting us know, ${escapeHTML(state.name)}. We'll miss you and send you all our love.`;
   if (mode === 'demo') {
     heading = 'Preview complete!';
