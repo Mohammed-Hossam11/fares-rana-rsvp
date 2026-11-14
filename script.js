@@ -48,6 +48,7 @@ const progressBar = document.getElementById('progress-bar');
 const formCounter = document.getElementById('form-counter');
 const frame = document.getElementById('response-frame');
 const demoHint = document.getElementById('demo-hint');
+const formCard = document.querySelector('.form-card');
 
 let state = { name: '', attending: null };
 // One seat per invitation: guests no longer choose a plus-one.
@@ -156,6 +157,7 @@ function validateStep() {
 }
 
 function showComplete(mode) {
+  formCard.classList.add('is-complete'); // hides the form header; confirmation starts the card
   actions.hidden = true;
   demoHint.hidden = true;
   progressBar.style.width = '100%';
@@ -170,7 +172,8 @@ function showComplete(mode) {
     message = 'This is a design preview. No RSVP was saved. Connect the Google Apps Script URL to accept real guest responses.';
   }
   const calendar = attending
-    ? `<div class="calendar-actions">
+    ? `<div class="calendar-cues" aria-hidden="true"><svg class="cue-arrow" viewBox="0 0 120 48" aria-hidden="true" fill="none"><path d="M116 5C104 4 100 16 90 14S75 3 68 15 61 34 60 43" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M55 37.5 60 43.5 65.5 37.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="cue-arrow cue-right" viewBox="0 0 120 48" aria-hidden="true" fill="none"><path d="M116 5C104 4 100 16 90 14S75 3 68 15 61 34 60 43" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M55 37.5 60 43.5 65.5 37.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="calendar-actions">
         <a class="calendar-button" href="${isAndroid ? escapeHTML(androidCalendarIntent()) : CALENDAR_ICS}">ADD TO CALENDAR</a>
         <a class="calendar-button" href="${escapeHTML(MAPS_URL)}" target="_blank" rel="noopener">VIEW LOCATION</a>
       </div>`
@@ -178,6 +181,7 @@ function showComplete(mode) {
   formBody.innerHTML = `<div class="completed" role="status"><svg class="completed-symbol" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>${heading}</h3><p>${message}</p>${calendar}${mode === 'demo' ? '<button class="restart-button" type="button" id="restart-button">TRY AGAIN</button>' : ''}</div>`;
   // A confirmed RSVP has no restart option; only the preview keeps "Try again".
   document.getElementById('restart-button')?.addEventListener('click', () => {
+    formCard.classList.remove('is-complete');
     state = { name:'', attending:null };
     currentStep = 'name'; pendingId = null; demoHint.hidden = configured; render();
   });
