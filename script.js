@@ -251,28 +251,50 @@ window.addEventListener('message', (event) => {
   }
 });
 
-// Calm keyboard handling: let the browser open the keyboard, wait until the viewport has
-// settled, then scroll once (only if the question or field is actually hidden).
-// Snapping is switched off for good once the form is used, so nothing pulls the page back.
+// Keyboard handling: the browser's own focus scrolling keeps the field above the keyboard.
+// We never scroll on every viewport resize (iOS fires those while typing as the QuickType bar
+// and toolbar come and go). While the form is in use: snapping and smooth scrolling are off,
+// and the RSVP section's height is frozen in pixels so 100dvh changes can't re-centre the card.
+// At most one instant correction runs per focus, after the keyboard has finished opening.
 const root = document.documentElement;
 const visual = window.visualViewport;
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-let revealTimer = null;
-function revealActiveField() {
+const rsvpSection = document.getElementById('rsvp');
+let settleTimer = null;
+let settleCap = null;
+let lockedWidth = 0;
+function lockSectionHeight() {
+  if (!rsvpSection || lockedWidth === window.innerWidth) return;
+  rsvpSection.style.minHeight = '';
+  rsvpSection.style.minHeight = rsvpSection.offsetHeight + 'px';
+  lockedWidth = window.innerWidth;
+}
+// Rotation (a real width change) re-measures; keyboard and toolbar changes never do.
+window.addEventListener('resize', () => {
+  if (lockedWidth && window.innerWidth !== lockedWidth && rsvpSection) {
+    lockedWidth = 0;
+    if (document.activeElement?.tagName === 'INPUT') lockSectionHeight();
+    else rsvpSection.style.minHeight = '';
+  }
+});
+function stopSettleWatch() {
+  clearTimeout(settleTimer); clearTimeout(settleCap);
+  if (visual) visual.removeEventListener('resize', onSettleResize);
+}
+function onSettleResize() {
+  clearTimeout(settleTimer);
+  settleTimer = setTimeout(correctOnce, 250);
+}
+function correctOnce() {
+  stopSettleWatch();
   const field = document.activeElement;
   if (!field || field.tagName !== 'INPUT' || !form.contains(field)) return;
-  const visibleTop = visual ? visual.offsetTop : 0;
-  const visibleHeight = visual ? visual.height : window.innerHeight;
-  const anchor = document.getElementById('question-title') || field;
-  const anchorTop = anchor.getBoundingClientRect().top - visibleTop;
-  const fieldBottom = field.getBoundingClientRect().bottom - visibleTop;
-  if (anchorTop >= 8 && fieldBottom <= visibleHeight - 12) return;
-  const offset = fieldBottom - anchorTop <= visibleHeight - 24 ? anchorTop - 16 : fieldBottom - (visibleHeight - 16);
-  window.scrollBy({ top: offset, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
-}
-function scheduleReveal() {
-  clearTimeout(revealTimer);
-  revealTimer = setTimeout(revealActiveField, 220);
+  const top = visual ? visual.offsetTop : 0;
+  const height = visual ? visual.height : window.innerHeight;
+  const rect = field.getBoundingClientRect();
+  const fieldTop = rect.top - top;
+  const fieldBottom = rect.bottom - top;
+  if (fieldTop >= 8 && fieldBottom <= height - 12) return; // already visible: leave the page alone
+  window.scrollBy({ top: fieldTop < 8 ? fieldTop - 16 : fieldBottom - (height - 16), behavior: 'auto' });
 }
 // Match the page background and browser tint to the RSVP section while the keyboard is open,
 // so no cream strip shows around the keyboard's rounded corners.
@@ -281,16 +303,20 @@ const PAGE_TINT = themeColor ? themeColor.content : '';
 const TYPING_TINT = '#e9dfd2';
 form.addEventListener('focusin', (event) => {
   if (event.target.tagName !== 'INPUT') return;
+  lockSectionHeight();
   root.classList.add('form-active', 'is-typing');
   if (themeColor) themeColor.content = TYPING_TINT;
-  scheduleReveal();
+  stopSettleWatch();
+  if (visual) visual.addEventListener('resize', onSettleResize);
+  settleTimer = setTimeout(correctOnce, 450);  // keyboard already open: no resize will come
+  settleCap = setTimeout(correctOnce, 1200);   // never keep watching past the keyboard animation
 });
 form.addEventListener('focusout', (event) => {
   if (event.target.tagName !== 'INPUT') return;
+  stopSettleWatch();
   root.classList.remove('is-typing');
   if (themeColor) themeColor.content = PAGE_TINT;
 });
-if (visual) visual.addEventListener('resize', () => { if (document.activeElement?.tagName === 'INPUT') scheduleReveal(); });
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
