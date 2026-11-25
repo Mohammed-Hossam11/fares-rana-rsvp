@@ -73,7 +73,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .venue-main { font-size: 1.08em; color: var(--invite-strong); -webkit-text-stroke: .35px currentColor; }
 .venue-sub { color: var(--invite-strong); -webkit-text-stroke: .6px currentColor; }
 .dot { padding: 0 8px; }
-.primary-cta { margin-top: 36px; min-height: 52px; padding: 0 26px 0 30px; display: inline-flex; justify-content: center; align-items: center; gap: 14px; border: 1px solid var(--brown); border-radius: 999px; background: var(--brown); color: #fbf6ef; text-decoration: none; font: 18px var(--serif); letter-spacing: .04em; transition: background .3s ease, color .3s ease, border-color .3s ease; }
+.primary-cta { margin-top: 36px; min-height: 52px; padding: 0 26px 0 30px; display: inline-flex; justify-content: center; align-items: center; gap: 14px; border: 1px solid var(--brown); border-radius: 999px; background: var(--brown); color: #fbf6ef; text-decoration: none; font: 18px var(--serif); letter-spacing: .05em; -webkit-text-stroke: .55px currentColor; transition: background .3s ease, color .3s ease, border-color .3s ease; }
 .primary-cta:hover, .primary-cta:active { background: #4f3328; border-color: #4f3328; color: #fbf6ef; }
 .cta-arrow { width: 11px; height: 17px; flex: none; animation: cta-nudge 2.4s ease-in-out infinite; }
 @keyframes cta-nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(2px); } }
