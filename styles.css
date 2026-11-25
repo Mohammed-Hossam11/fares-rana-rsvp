@@ -32,15 +32,15 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .svg-defs { position: absolute; }
 .hero-flowers { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .flower { position: absolute; width: var(--fs); height: var(--fs); opacity: .92; transform-origin: 50% 50%; will-change: transform; animation: flower-sway var(--dur, 8s) ease-in-out var(--delay, 0s) infinite; }
-/* Soft breeze: each flower sways 2-4deg and drifts 2-4px on its own slow cycle */
+/* Soft breeze: each flower sways 3-6deg and drifts 3-6px on its own slow cycle */
 @keyframes flower-sway { 0%, 100% { transform: rotate(calc(var(--sway, 3deg) * -1)) translateY(0); } 50% { transform: rotate(var(--sway, 3deg)) translateY(var(--drift, -2px)); } }
-.f1 { --dur: 8s; --delay: -1s; --sway: 3deg; --drift: -3px; } .f2 { --dur: 9.5s; --delay: -4s; --sway: 2.5deg; --drift: 2px; }
-.f3 { --dur: 7s; --delay: -2.5s; --sway: 3.5deg; --drift: -2px; } .f4 { --dur: 10s; --delay: -6s; --sway: 2deg; --drift: 3px; }
-.f5 { --dur: 8.5s; --delay: -3s; --sway: 3deg; --drift: -4px; } .f6 { --dur: 9s; --delay: -5.5s; --sway: 2.5deg; --drift: 2px; }
-.f7 { --dur: 7.5s; --delay: -0.5s; --sway: 4deg; --drift: -2px; } .f8 { --dur: 10s; --delay: -7s; --sway: 3deg; --drift: 3px; }
-.f9 { --dur: 6.5s; --delay: -2s; --sway: 2deg; --drift: -3px; } .f10 { --dur: 9s; --delay: -3.5s; --sway: 3.5deg; --drift: 2px; }
-.f11 { --dur: 7.5s; --delay: -5s; --sway: 2.5deg; --drift: -2px; } .f12 { --dur: 8.5s; --delay: -1.5s; --sway: 3deg; --drift: 4px; }
-.f13 { --dur: 6.5s; --delay: -4.5s; --sway: 4deg; --drift: -2px; } .f14 { --dur: 9.5s; --delay: -2s; --sway: 2deg; --drift: 3px; }
+.f1 { --dur: 8s; --delay: -1s; --sway: 5deg; --drift: -4px; } .f2 { --dur: 9.5s; --delay: -4s; --sway: 4deg; --drift: 3px; }
+.f3 { --dur: 7s; --delay: -2.5s; --sway: 5.5deg; --drift: -3px; } .f4 { --dur: 10s; --delay: -6s; --sway: 3deg; --drift: 4px; }
+.f5 { --dur: 8.5s; --delay: -3s; --sway: 5deg; --drift: -6px; } .f6 { --dur: 9s; --delay: -5.5s; --sway: 4deg; --drift: 3px; }
+.f7 { --dur: 7.5s; --delay: -0.5s; --sway: 6.5deg; --drift: -3px; } .f8 { --dur: 10s; --delay: -7s; --sway: 5deg; --drift: 4px; }
+.f9 { --dur: 6.5s; --delay: -2s; --sway: 3deg; --drift: -4px; } .f10 { --dur: 9s; --delay: -3.5s; --sway: 5.5deg; --drift: 3px; }
+.f11 { --dur: 7.5s; --delay: -5s; --sway: 4deg; --drift: -3px; } .f12 { --dur: 8.5s; --delay: -1.5s; --sway: 5deg; --drift: 6px; }
+.f13 { --dur: 6.5s; --delay: -4.5s; --sway: 6.5deg; --drift: -3px; } .f14 { --dur: 9.5s; --delay: -2s; --sway: 3deg; --drift: 4px; }
 .f1 { left: calc(var(--fs) * -.5); top: calc(var(--fs) * -.05); }
 .f2 { left: calc(var(--fs) * .37); top: calc(var(--fs) * .45); }
 .f3 { left: calc(var(--fs) * -.5); top: calc(var(--fs) * .98); }
